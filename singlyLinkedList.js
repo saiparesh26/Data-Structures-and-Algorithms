@@ -73,6 +73,25 @@ class LinkedList{
         previousNode.next = tempNode.next;
         this.length--;
     }
+
+    reverse(){
+        if(!this.head.next){
+            return this.head;
+        }
+
+        var first = this.head;
+        this.tail = this.head;
+        var second = first.next;
+        while(second){
+            var temp = second.next;
+            second.next = first;
+            first = second;
+            second  =temp;
+        }
+        this.head.next = null;
+        this.head = first;
+        return this;
+    }
 }
 
 var myLinkedList = new LinkedList(5);
@@ -86,4 +105,5 @@ console.log(myLinkedList.printList());
 console.log(myLinkedList.length);
 myLinkedList.remove(2);
 console.log(myLinkedList.printList());
+console.log(myLinkedList.reverse().printList());
 console.log(myLinkedList.length);
