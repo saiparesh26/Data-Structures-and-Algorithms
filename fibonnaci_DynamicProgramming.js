@@ -1,6 +1,8 @@
 //Normal recursive implementaion
-
+let calculation = 0;
+let calculation2 = 0;
 function fibonacci(n){
+    calculation++;
     if(n < 2){
         return n;
     }
@@ -11,6 +13,7 @@ function fibonacciMaster(){
     let cache = {};
 
     return function fib(n){
+        calculation2++;
         if(n in cache){
             return cache[n];
         }
@@ -26,7 +29,15 @@ function fibonacciMaster(){
     }
 }
 
+
+//Normal fibonacci function call
+var result = fibonacci(30);
+console.log(result);
+console.log("Normal recursive implementation has done " + calculation + " calculations");
+
+console.log("===============================");
 //first time run to create cache
 let fasterFib = fibonacciMaster();
-var result = fasterFib(10);
+result = fasterFib(30);
 console.log("DP ",result);
+console.log("Dynamic recursive implementation has done " + calculation2 + " calculations");
