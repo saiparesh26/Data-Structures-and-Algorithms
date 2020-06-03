@@ -59,8 +59,89 @@ class BinarySearchTree{
         return false;
     }
 
+    breadthFirstSearch(){
+        var currentNode = this.root;
+        var list = [];
+        var queue = [];
+        queue.push(currentNode);
+
+        while(queue.length > 0){
+            currentNode = queue.shift();
+            list.push(currentNode.value);
+            if(currentNode.left){
+                queue.push(currentNode.left);
+            }
+            if(currentNode.right){
+                queue.push(currentNode.right);
+            }
+        }
+        return list;
+    }
+
+    breadthFirstSearchRecursive(queue,list){
+        if(!queue.length){
+            return list;
+        }
+        var currentNode = queue.shift;
+        list.push(currentNode.value);
+        if(currentNode.left){
+            queue.push(currentNode.left);
+        }
+        if(currentNode.right){
+            queue.push(currentNode.right);
+        }
+        return this.breadthFirstSearch(queue,list);
+    }
+
+    DFSInorder(){
+        return traverseInOrder(this.root, []);
+    }
+
+    DFSPostorder(){
+        return traversePostOrder(this.root , []);
+    }
+
+    DFSPreorder(){
+        return traversePreOrder(this.root , []);
+    }
 
 }
+
+function traverseInOrder(node , list){
+    if(node.left){
+        traverseInOrder(node.left , list);
+    }
+    list.push(node.value);
+    if(node.right){
+        traverseInOrder(node.right,list);
+    }
+    return list;
+}
+
+function traversePreOrder(node , list){
+    list.push(node.value);
+    if(node.left){
+        traversePreOrder(node.left , list);
+    }
+    
+    if(node.right){
+        traversePreOrder(node.right,list);
+    }
+    return list;
+}
+
+function traversePostOrder(node , list){
+    if(node.left){
+        traversePostOrder(node.left , list);
+    }
+    
+    if(node.right){
+        traversePostOrder(node.right,list);
+    }
+    list.push(node.value);
+    return list;
+}
+
 function traverse(node){
     var tree = {value : node.value};
     tree.left = node.left === null? null : traverse(node.left);
@@ -78,4 +159,12 @@ tree.insert(1);
 console.log(tree);
 console.log(tree.lookup(20));
 console.log(tree.lookup(55));
-JSON.stringify(traverse(tree.root));
+
+var myBFS = tree.breadthFirstSearch();
+console.log(myBFS);
+var myBFS_R = tree.breadthFirstSearchRecursive([tree.root],[]);
+console.log(myBFS_R);
+
+console.log(tree.DFSInorder());
+console.log(tree.DFSPreorder());
+console.log(tree.DFSPostorder());
